@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="assets/css/bootstrap/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/todo.css">
+        
+        <script src="assets/js/libs/underscore/underscore.js"></script>
+        <script src="assets/js/libs/angular/angular.js"></script>
+        <script src="assets/js/todo.js"></script>
+    </head>
+    <body>
+        
+        <div ng-controller="todoController" class="container-fluid">
+            <h2>Total Todos: {{totalTodos()}}</h2>
+            <hr>
+            
+            <ul class="unstyled">
+                <li ng-repeat="todo in todos">
+                    <input type="checkbox" ng-model="todo.done"/>
+                    <span ng-hide="todo.editing" ng-dblclick="editTodo(todo)" class="done-{{todo.done}}">{{todo.text}}</span>
+                    <form class="form-horizontal" ng-show="todo.editing" ng-submit="doneEditing(todo)">
+                        <input type="text" ng-model="todo.text"/>
+                    </form>
+                </li>
+            </ul>
+            
+            <hr />
+            
+            <form class="form-horizontal" ng-submit="doNothing();">
+                <input type="text" id="add-todo-text" ng-model="addTodoText" ng-model-instant />
+                <button class="btn" type="button" ng-click="addTodo()"><i class="icon-plus"></i></button>
+            </form>
+            
+            <hr />
+            
+            <button class="btn btn-danger" ng-click="clearCompletedTodos()">Clear completed</button>
+            
+        </div>
+    </body>
+</html>
