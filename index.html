@@ -16,12 +16,14 @@
             <h2>Total Todos: {{totalTodos()}}</h2>
             <hr>
             
+            <div ng-show="defaultTodo.show">{{defaultTodo.text}}</div>
             <ul class="unstyled">
                 <li ng-repeat="todo in todos">
                     <input type="checkbox" ng-model="todo.done"/>
-                    <span ng-hide="todo.editing" ng-dblclick="editTodo(todo)" class="done-{{todo.done}}">{{todo.text}}</span>
+                    <span ng-hide="todo.editing" ng-dblclick="editTodo(todo)" class="done-{{todo.done}}" title="Double-click to edit">{{todo.text}}</span>
                     <form class="form-horizontal" ng-show="todo.editing" ng-submit="doneEditing(todo)">
                         <input type="text" ng-model="todo.text"/>
+                        <button class="btn" type="button" ng-click="removeTodo($index)"><i class="icon-trash"></i></button>
                     </form>
                 </li>
             </ul>
