@@ -27,7 +27,7 @@ function todoController($scope){
     
     //remove a todo from the list
     $scope.removeTodo = function(idx){
-        $scope.todos.splice(idx);
+        $scope.todos.splice(idx,1);
     }
     
     //clear the completed todos (using underscore.js filter method)
