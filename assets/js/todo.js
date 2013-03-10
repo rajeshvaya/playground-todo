@@ -46,11 +46,8 @@ function todoController($scope){
         $scope.saveToLocalStorage();
     }   
     
-    //empty method to do nothing
-    $scope.doNothing = function(){
-        return false;
-    }
     
+    //save todos to local storage if available
     $scope.saveToLocalStorage = function(){
         console.log("Saving to local storage");
         if(window.localStorage){
@@ -59,6 +56,7 @@ function todoController($scope){
         return;
     }
     
+    //get back todo list from local storage if available
     $scope.getFromLocalStorage = function(){
         if(window.localStorage){
             storedTodos = window.localStorage.getItem("_todos");
@@ -68,6 +66,12 @@ function todoController($scope){
         
     }
     
+    //empty method to do nothing
+    $scope.doNothing = function(){
+        return false;
+    }
+    
+    //check for saved todos
     $scope.getFromLocalStorage();
 
 }
