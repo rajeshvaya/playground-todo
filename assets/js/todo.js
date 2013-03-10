@@ -71,7 +71,7 @@ function todoController($scope){
         return false;
     }
     
-    //check for saved todos
+    //check for saved todos in local storage
     $scope.getFromLocalStorage();
 
 }
