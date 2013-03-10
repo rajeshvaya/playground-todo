@@ -30,8 +30,8 @@
             
             <hr />
             
-            <form class="form-horizontal" ng-submit="doNothing();">
-                <input type="text" id="add-todo-text" ng-model="addTodoText" ng-model-instant />
+            <form class="form-horizontal" ng-submit="addTodo();">
+                <input type="text" id="add-todo-text" ng-model="addTodoText" ng-model-instant required/>
                 <button class="btn" type="button" ng-click="addTodo()"><i class="icon-plus"></i></button>
             </form>
             
