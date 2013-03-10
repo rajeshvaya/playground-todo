@@ -17,6 +17,7 @@ function todoController($scope){
         console.log($scope.addTodoText)
         if($scope.addTodoText == '' || $scope.addTodoText == undefined) return;
         $scope.todos.push({text: $scope.addTodoText, done: false})
+        $scope.saveToLocalStorage();
         $scope.addTodoText = ''
     }
     
@@ -28,6 +29,7 @@ function todoController($scope){
     //remove a todo from the list
     $scope.removeTodo = function(idx){
         $scope.todos.splice(idx,1);
+        $scope.saveToLocalStorage();
     }
     
     //clear the completed todos (using underscore.js filter method)
@@ -35,17 +37,38 @@ function todoController($scope){
         $scope.todos = _.filter($scope.todos, function(todo){
             return !todo.done
         });
+        $scope.saveToLocalStorage();
     }
     
     //reset flag after editing
     $scope.doneEditing = function(todo){
         todo.editing = false;
+        $scope.saveToLocalStorage();
     }   
     
     //empty method to do nothing
     $scope.doNothing = function(){
         return false;
     }
+    
+    $scope.saveToLocalStorage = function(){
+        console.log("Saving to local storage");
+        if(window.localStorage){
+            window.localStorage.setItem("_todos", JSON.stringify($scope.todos))
+        }
+        return;
+    }
+    
+    $scope.getFromLocalStorage = function(){
+        if(window.localStorage){
+            storedTodos = window.localStorage.getItem("_todos");
+            if(storedTodos) $scope.todos = JSON.parse(storedTodos);
+        }
+        return;
+        
+    }
+    
+    $scope.getFromLocalStorage();
 
 }
 
