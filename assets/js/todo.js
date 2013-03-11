@@ -1,6 +1,8 @@
 //Todo controller
-function todoController($scope){
-    
+
+var app = angular.module('todoApp',[])
+
+app.controller('todoController', function($scope){
     //initialization
     $scope.defaultTodo = {text: "You are awesome! you have no more todos to do :)", show: true};
     $scope.todos = [];
@@ -74,5 +76,5 @@ function todoController($scope){
     //check for saved todos in local storage
     $scope.getFromLocalStorage();
 
-}
+});
 
