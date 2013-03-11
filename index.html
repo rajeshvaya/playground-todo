@@ -14,11 +14,16 @@
         
         <div ng-controller="todoController" class="container-fluid">
             <h2>Total Todos: {{totalTodos()}}</h2>
+            <div>
+                <a href="#"><span class="label-inverse label">All <sup> ({{todos.length}}) </sup></span></a>
+                <a href="#/remaining"><span class="label-important label">Remaining <sup> ({{remainingCount}}) </sup></span></a>
+                <a href="#/completed"><span class="label-success label">Completed <sup> ({{doneCount}}) </sup></span></a>
+            </div>
             <hr>
             
             <div ng-show="defaultTodo.show">{{defaultTodo.text}}</div>
             <ul class="unstyled">
-                <li ng-repeat="todo in todos">
+                <li ng-repeat="todo in todos | filter: todosFilter">
                     <input type="checkbox" ng-model="todo.done"/>
                     <span ng-hide="todo.editing" ng-dblclick="editTodo(todo)" class="done-{{todo.done}}" title="Double-click to edit">{{todo.text}}</span>
                     <form class="form-horizontal" ng-show="todo.editing" ng-submit="doneEditing(todo)">

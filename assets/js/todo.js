@@ -1,11 +1,28 @@
-//Todo controller
+'use strict';
 
 var app = angular.module('todoApp',[])
 
-app.controller('todoController', function($scope){
+//Todo controller
+app.controller('todoController', function($scope, $location){
+    
     //initialization
     $scope.defaultTodo = {text: "You are awesome! you have no more todos to do :)", show: true};
-    $scope.todos = [];
+    var todos = $scope.todos = [];
+    $scope.todosFilter = null;
+    $scope.location = $location;
+    
+    //filter todo list based on URL
+    $scope.$watch('location.path()', function(path){
+       $scope.todosFilter = path == '/remaining' ? {done: false} : path == '/completed' ?  {done: true} : null;
+       console.log($scope.todosFilter);
+    });
+    
+    
+    $scope.$watch('todos', function () {
+		$scope.remainingCount = _.filter($scope.todos, function(todo){ return !todo.done }).length;
+		$scope.doneCount = $scope.todos.length - $scope.remainingCount;
+		$scope.allChecked = !$scope.remainingCount;
+	}, true);
     
     //return total number of todos
     $scope.totalTodos = function(){
@@ -60,6 +77,7 @@ app.controller('todoController', function($scope){
     
     //get back todo list from local storage if available
     $scope.getFromLocalStorage = function(){
+        var storedTodos;
         if(window.localStorage){
             storedTodos = window.localStorage.getItem("_todos");
             if(storedTodos) $scope.todos = JSON.parse(storedTodos);
