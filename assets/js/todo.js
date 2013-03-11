@@ -14,10 +14,9 @@ app.controller('todoController', function($scope, $location){
     //filter todo list based on URL
     $scope.$watch('location.path()', function(path){
        $scope.todosFilter = path == '/remaining' ? {done: false} : path == '/completed' ?  {done: true} : null;
-       console.log($scope.todosFilter);
     });
     
-    
+    //watch for change in todos (do not send to local storage from here for more control)
     $scope.$watch('todos', function () {
 		$scope.remainingCount = _.filter($scope.todos, function(todo){ return !todo.done }).length;
 		$scope.doneCount = $scope.todos.length - $scope.remainingCount;
